@@ -217,3 +217,6 @@ function mouseOutOfRegion(e) {
     // reset the hover state, returning the border to normal
     e.feature.setProperty("state", "normal");
 }
+
+// Init the map after 50ms to make sure the data is loaded first
+setTimeout(function(){ initMap(); }, 50);
