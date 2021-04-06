@@ -1,11 +1,23 @@
 var returnCovidData;
 var returnVaccineData;
+var censusValue;
+var mapData = {};
+var date = getDate();
+var vaccineUrl = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
+
+// How to return the values. 
+//setTimeout(function(){ console.log(returnVaccineData); }, 50);
+//setTimeout(function(){ console.log(returnCovidData); }, 50);
+
+//Temporarily run the function
+runAPIs("California");
+
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     //Need to add a function that checks if the Name is valid
     getCovidData(stateName);
     getVaccineData(stateName);
-    console.log(returnCovidData);
+    
 }
 
 /**
@@ -26,19 +38,21 @@ function getCovidData(stateName) {
         if (this.readyState === this.DONE) {
             var covidData = JSON.parse(this.response);
 
-            //Returns the confirmed, recovered and deaths in the last 24hrs           
-            for(i=0; i < covidData[0].provinces.length; i++){
+            //Returns the confirmed, recovered and deaths in the last 24hrs   
+                    
+            for (i = 0; i < covidData[0].provinces.length; i++) {
                 if (covidData[0].provinces[i].province == stateName) {
-                     // returnCovidData = [confirmed, recovered, deaths];
+                    // returnCovidData = [confirmed, recovered, deaths];
                     returnCovidData = [covidData[0].provinces[i].confirmed, covidData[0].provinces[i].recovered, covidData[0].provinces[i].deaths];
-
+                    //returnData(returnCovidData, false);
                     //Break the loop once we have the value needed
                     break;
                 }
             }
+            
         }
     });
-
+    
     // XMLHttpRequest
     xhr.open("GET", "https://covid-19-data.p.rapidapi.com/report/country/name?date=2020-04-01&name=USA");
     xhr.setRequestHeader("x-rapidapi-key", "af9daf036amsh4c7360d9db21318p14bbcajsn1c70e54a7721");
@@ -52,33 +66,35 @@ function getCovidData(stateName) {
  * 
  */
 // Get the vaccine Data csv file and parse it into Json.
-function getVaccineData(stateName, map) {
-    var date = getDate();
-    var url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
-    //Parse the csv Data into Json
-    Papa.parse(url, {
+function getVaccineData(stateName) {
+        //Parse the csv Data into Json
+    Papa.parse(vaccineUrl, {
         download: true,
         complete: function (results) {
             //need to look inside the array where results.data.date == date and results.data.stateName == statename
-            for(i=0; i < results.data.length; i++){
-                if (results.data[i][0] == date && results.data[i][1] == stateName) {
-                    //If gettin Data for the map, Return the value needed
-                    //Else return the array with all the values
-                    // returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
-                    if(map){
-                        // console.log(results.data[i][5]);
-                        return 10;
+            for (i = 0; i < results.data.length; i++) {
+                //Return an object for the map
+                if(results.data[i][0] == date){
+                    //use return data
+                    //Correct a difference in Key name
+                    if(results.data[i][1] == "New York State"){
+                        mapData["New York"] = results.data[i][5];
                     }else{
-                        returnVaccineData = [results.data[i][2], results.data[i][4], results.data[i][5], results.data[i][7], results.data[i][11]];
-                        console.log(returnVaccineData);
+                    mapData[results.data[i][1]] = results.data[i][5];
                     }
-                    //Break the loop once we have the value needed
-                   break;
-               }
+                }
+                //Return the array with all the values for the main box
+                if (results.data[i][0] == date && results.data[i][1] == stateName) {
+                    // returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
+                        returnVaccineData = [results.data[i][2], results.data[i][4], results.data[i][5], results.data[i][7], results.data[i][11]];
+
+                }
             }
         }
     });
+
 }
+
 
 //Get today's date
 // Function based on https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
@@ -107,102 +123,97 @@ function getDate() {
 // Temporary values
 var censusMin = 13.33;
 var censusMax = 26.19;
-var censusTempValue = 18;
 var censusValue;
 // Actual code
 var map;
 
-
-
 // Initialize and add the map
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
-    //Center the map on the USA
-    center: { lat: 40, lng: -100 },
-  });
+   
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        //Center the map on the USA
+        center: { lat: 40, lng: -100 },
+    });
 
-  //Calls styleFeature function && mouseover events
-  map.data.setStyle(styleFeature);
-  map.data.addListener("mouseover", mouseInToRegion);
-  map.data.addListener("mouseout", mouseOutOfRegion);
+    //Calls styleFeature function && mouseover events
+    map.data.setStyle(styleFeature);
+    map.data.addListener("mouseover", mouseInToRegion);
+    map.data.addListener("mouseout", mouseOutOfRegion);
 
-  //Add the Min and Max values to the legend
-  document.getElementById("census-min").textContent = "Min: " + censusMin;
-  document.getElementById("census-max").textContent = "Max: " + censusMax;
+    //Add the Min and Max values to the legend
+    document.getElementById("census-min").textContent = "Min: " + censusMin;
+    document.getElementById("census-max").textContent = "Max: " + censusMax;
 
-  loadMapShapes();
+    loadMapShapes();
 }
 
 // Load the states polygons
 function loadMapShapes() {
-  // load US state outline polygons from a GeoJson file
-  map.data.loadGeoJson(
-    "https://storage.googleapis.com/mapsdevsite/json/states.js",
-    { idPropertyName: "STATE" }
-  );
+    // load US state outline polygons from a GeoJson file
+    map.data.loadGeoJson(
+        "https://storage.googleapis.com/mapsdevsite/json/states.js",
+        { idPropertyName: "STATE" }
+    );
 }
 
 // Add the styling to each state.
 function styleFeature(feature) {
-  const low = [5, 69, 54]; // color of smallest datum
-  const high = [151, 83, 34]; // color of largest datum
-  
-  //Get the census value
+    const low = [5, 69, 54]; // color of smallest datum
+    const high = [151, 83, 34]; // color of largest datum
+    let name = feature.i.NAME;
+    //Get the census value
     // Attribute random value until getVaccineData bug fix
-  censusValue = Math.floor(Math.random() * 13)+13;
-  //let censusValue = getVaccineData(feature.i.NAME, true);
-  console.log(censusValue);
-  // delta represents where the value sits between the min and max
-  const delta =
-    (censusValue - censusMin) /
-    (censusMax - censusMin);
-  const color = [];
+    // censusValue = Math.floor(Math.random() * 13)+13;
+    //console.log(censusValue);
+    // delta represents where the value sits between the min and max
+    const delta =
+        (mapData[name] - censusMin) /
+        (censusMax - censusMin);
+    const color = [];
 
-  for (let i = 0; i < 3; i++) {
-    // calculate an integer color based on the delta
-    color.push((high[i] - low[i]) * delta + low[i]);
-  }
-  // determine whether to show this shape or not
-  let showRow = true;
+    for (let i = 0; i < 3; i++) {
+        // calculate an integer color based on the delta
+        color.push((high[i] - low[i]) * delta + low[i]);
+    }
+    // determine whether to show this shape or not
+    let showRow = true;
 
-  let outlineWeight = 0.5,
-    zIndex = 1;
+    let outlineWeight = 0.5,
+        zIndex = 1;
 
     // Need to add the mouseInToRegion function for that to work
-  if (feature.getProperty("state") === "hover") {
-    outlineWeight = zIndex = 2;
-  }
-  return {
-    strokeWeight: outlineWeight,
-    strokeColor: "#fff",
-    zIndex: zIndex,
-    fillColor: "hsl(" + color[0] + "," + color[1] + "%," + color[2] + "%)",
-    fillOpacity: 0.75,
-    visible: showRow,
-  };
+    if (feature.getProperty("state") === "hover") {
+        outlineWeight = zIndex = 2;
+    }
+    return {
+        strokeWeight: outlineWeight,
+        strokeColor: "#fff",
+        zIndex: zIndex,
+        fillColor: "hsl(" + color[0] + "," + color[1] + "%," + color[2] + "%)",
+        fillOpacity: 0.75,
+        visible: showRow,
+    };
 
 
 }
 
 //Mouse in function
-   function mouseInToRegion(e) {
+function mouseInToRegion(e) {
     // set the hover state so the setStyle function can change the border
     e.feature.setProperty("state", "hover");
-
+    console.log(mapData);
+    let name = e.feature.i.NAME;
     // update the label
     document.getElementById("data-label").textContent = e.feature.getProperty(
-      "NAME"
+        "NAME"
     );
-    document.getElementById("data-value").textContent = censusValue + "%";
+    document.getElementById("data-value").textContent = mapData[name] + "%";
     document.getElementById("data-box").style.display = "block";
-  }
-  
+}
+
 //Mouse out function
-  function mouseOutOfRegion(e) {
+function mouseOutOfRegion(e) {
     // reset the hover state, returning the border to normal
     e.feature.setProperty("state", "normal");
-  }
-
-//Temporarily run the function
-runAPIs("California");
+}
