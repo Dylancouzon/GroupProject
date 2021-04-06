@@ -5,9 +5,9 @@ var mapData = {};
 var date = getDate();
 var vaccineUrl = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
 
-// How to return the values. 
-//setTimeout(function(){ console.log(returnVaccineData); }, 50);
-//setTimeout(function(){ console.log(returnCovidData); }, 50);
+// Just to avoid any bugs
+//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, 100);
+//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, 100);
 
 //Temporarily run the function
 runAPIs("California");
@@ -202,7 +202,6 @@ function styleFeature(feature) {
 function mouseInToRegion(e) {
     // set the hover state so the setStyle function can change the border
     e.feature.setProperty("state", "hover");
-    console.log(mapData);
     let name = e.feature.i.NAME;
     // update the label
     document.getElementById("data-label").textContent = e.feature.getProperty(
@@ -219,4 +218,4 @@ function mouseOutOfRegion(e) {
 }
 
 // Init the map after 50ms to make sure the data is loaded first
-setTimeout(function(){ initMap(); }, 50);
+setTimeout(function(){ initMap(); }, 100);
