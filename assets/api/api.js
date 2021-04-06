@@ -4,20 +4,22 @@ var censusValue;
 var mapData = {};
 var date = getDate();
 var vaccineUrl = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
+var oldData = [];
 
 // Just to avoid any bugs
 //returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, 100);
 //returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, 100);
+//Get the data from the previous months in descending order
+//setTimeout(function(){ console.log(oldData); }, 100);
 
 //Temporarily run the function
-runAPIs("California");
+runAPIs("Alabama");
 
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     //Need to add a function that checks if the Name is valid
     getCovidData(stateName);
-    getVaccineData(stateName);
-    
+    getVaccineData(stateName, date);
 }
 
 /**
@@ -66,13 +68,21 @@ function getCovidData(stateName) {
  * 
  */
 // Get the vaccine Data csv file and parse it into Json.
-function getVaccineData(stateName) {
+function getVaccineData(stateName, date) {
         //Parse the csv Data into Json
     Papa.parse(vaccineUrl, {
         download: true,
         complete: function (results) {
             //need to look inside the array where results.data.date == date and results.data.stateName == statename
             for (i = 0; i < results.data.length; i++) {
+
+                for(j=0; j<4; j++){
+                    if(results.data[i][0] == getDate(-j)){
+                        oldData[j] = results.data[i][4];
+                    }
+                }
+                
+
                 //Return an object for the map
                 if(results.data[i][0] == date){
                     //use return data
@@ -98,10 +108,24 @@ function getVaccineData(stateName) {
 
 //Get today's date
 // Function based on https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-function getDate() {
+function getDate(prevMonth) {
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    
+    // Used for the oldData fuction
+    if(prevMonth){
+         var month = 1+prevMonth;
+    }else{
+        var month = 1;
+    }
+
+    // Because the data doesn't start till mid January, we are not able to get any result back if we look before at a day before the start date.
+    if(prevMonth === -3){
+        var dd = 20;
+    }else{
+        var dd = String(today.getDate()).padStart(2, '0');
+    }
+    
+    var mm = String(today.getMonth() + month).padStart(2, '0');
     var yyyy = today.getFullYear();
 
     today = yyyy + "-" + mm + "-" + dd;
