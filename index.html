@@ -11,11 +11,120 @@
     <link rel="stylesheet" href="assets/css/css.css" />
     <!-- Maps API CSS link -->
     <link rel="stylesheet" href="assets/css/maps.css" />
+    <style>
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-2 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.box {
+    display: inline-block;
+    width: 50%;
+    margin-top: 50px;
+    margin-left: 200px;
+} 
+
+    </style>
 </head>
 <body>
-
-
-
+    <section class="hero is-small has-background-primary">
+        <div class="hero-body">
+            <div class="container">
+                  <!-- Insert logo here -->
+                <figure class="image center">
+                    <img src="logo2.png" style="max-width: 256px;">
+                </figure>
+            </div>
+        </div>
+    </section>
+    <!-- Input title and tagline -->
+    <section class="container-1">
+        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1><br>
+        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
+    </section>
+    <!-- Input Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io"></a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              About
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Search by State
+                </a>
+                <a class="navbar-item">
+                  Vaccine Centers
+                </a>
+                <a class="navbar-item">
+                  Contact Us
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <!-- Input container for "Search by State:" section -->
+    <div class="container-2">
+        <form class="notification is-warning">
+            <h3 class="label-1">Search by State:</h3>
+            <input class="input is-normal" type="text" placeholder="State"><br>
+            <button class="searchButton">Search</button>
+        </form>
+    </div>
+    <!-- Input map -->
     <!-- <div id="mapContainer">
         <div id="legend">
             <div id="census-min">min</div>
@@ -29,8 +138,50 @@
             <span id="data-value"></span>
         </div>
     </div> -->
-
-
+    <!-- Input dropdown menu -->
+    <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+            <span>Pick a State</span>
+                <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+            <div class="dropdown-item">
+                <p></p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <form class="box has-background-danger">
+        <h3 class="heading">Vaccination Centers by State:</h3>
+        <div class="field">
+          <label class="label-2">State:</label>
+          <div class="control">
+            <input class="input" type="state" placeholder="State">
+          </div>
+        </div>
+      
+        <div class="field">
+          <label class="label-2">City:</label>
+          <div class="control">
+            <input class="input" type="city" placeholder="City">
+          </div>
+        </div>
+      
+        <button class="button is-primary">Submit</button>
+      </form>
+    <!-- Insert footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>The Vaccinator</strong> by <a href="https://github.com/rtmiranda18">Reesh Miranda</a>, <a href="">Dylan Couzon</a> and <a href="">Manuel Villasenor</a>.
+          </p>
+        </div>
+    </footer>
 
     <!-- Input jQuery link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
