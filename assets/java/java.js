@@ -6,13 +6,44 @@
     // the right side will parse out the data by state
         //will have 50 different if statements saying that if search = statename, then display the data for that specific state
             //inside if statement: beneath the graph area, we will create a list of different vaccination facts for that given state
-var listAreaDoc = $('#list')
+var listAreaDoc = $('list')
 var searchTextAreaDoc = $('#search')
 var searchButtonDoc = $('#button')
+var userInput = searchTextAreaDoc.innerHTML
 
-function displayData () {
+userInput 
+// function turns first letter of every word into a capital letter
 
-  function runAPIs () 
+function userInputCaps (userInput){ 
+  var userInputTemp = 'new york'
+  var tempArray = userInputTemp.split ('')
+  for (var i = 0; i < tempArray.length; i++) {
+   
+    if ( i==0 ){
+      tempArray [0].toUpperCase
+    }
+    if (tempArray[i] === ' '){
+      
+      tempArray[i+1].toUpperCase
+    }
+    var userInputFinal = tempArray.toString
+        
+    userInputFinal = userInputFinal.replace(',','')
+
+  }
+
+}
+
+
+
+
+setTimeout( function runAPIs (userInputFinal){
+
+}, 300 )
+
+
+setTimeout (function displayData (userInputFinal) {
+
 
 
 
@@ -40,14 +71,14 @@ function displayData () {
 
 
    
-    Fact1List.attr ('class','')
-    Fact2List.attr ('class','')
-    Fact3List.attr ('class','')
-    Fact4List.attr ('class','')
-    Fact5List.attr ('class','')
-    Fact6List.attr ('class','')
-    Fact7List.attr ('class','')
-    Fact8List.attr ('class','')
+    Fact1List.attr ('class','stateFacts')
+    Fact2List.attr ('class','stateFacts')
+    Fact3List.attr ('class','stateFacts')
+    Fact4List.attr ('class','stateFacts')
+    Fact5List.attr ('class','stateFacts')
+    Fact6List.attr ('class','stateFacts')
+    Fact7List.attr ('class','stateFacts')
+    Fact8List.attr ('class','stateFacts')
 
 
 
@@ -60,20 +91,31 @@ function displayData () {
     listAreaDoc.append(Fact7List)
     listAreaDoc.append(Fact8List)
 
+//search history
+
+ 
+var allData
+
+},300)
 
 
 
+searchButtonDoc.addEventListener (click, diplayData())
+searchButtonDoc.addEventListener (click, runAPIs())
+
+function arrayOfStringsToNumber (){
+
+
+  for ( i=0; i<allData.length; i++){
+    var temp = allData[i]
+    allData[i] = temp.parseInt ()
+  }
 
 
 
 }
 
-
 //********************Graph***************************
-
-
-
-searchButtonDoc.addEventListener (click, diplayData())
 
 
 
@@ -90,7 +132,7 @@ const config = {
         },
         title: {
           display: true,
-          text: 'Chart.js Line Chart'
+          text: ''
         }
       },
       hover: {
@@ -110,9 +152,8 @@ const config = {
             text: 'Value'
           },
           min: 0,
-          max: 100,
+          max: 10000,
           ticks: {
-            // forces step size to be 50 units
             stepSize: 50
           }
         }
@@ -121,24 +162,18 @@ const config = {
   };
 
 
-  const DATA_COUNT = 7;
+  const DATA_COUNT = 4;
 const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
 
-const labels = Utils.months({count: 7});
+const labels = allData ({count: 4});
 const data = {
   labels: labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: Utils.numbers(NUMBER_CFG),
+      label: 'covid cases data',
+      data: allData (NUMBER_CFG),
       borderColor: Utils.CHART_COLORS.red,
       backgroundColor: Utils.CHART_COLORS.red,
-    },
-    {
-      label: 'Dataset 2',
-      data: Utils.numbers(NUMBER_CFG),
-      borderColor: Utils.CHART_COLORS.blue,
-      backgroundColor: Utils.CHART_COLORS.blue,
     }
   ]
 };
