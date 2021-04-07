@@ -1,0 +1,98 @@
+body {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: #F0FFF0;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  margin-left: 360px;
+  margin-right: 340px;
+  margin-bottom: 20px;
+}
+
+.container-2 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: 25%;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.dropdown {
+  margin-left: 10px;
+  margin-bottom: 50px;
+}
+
+#title {
+  display: inline-block;
+  width: 50%;
+  margin-top: 20px;
+  margin-left: 325px;
+} 
+
+#dropdown {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 250px;
+  margin-bottom: 20px;
+  width: 25%;
+}
+
+#info {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: 25%
+}
+
+#field {
+  display: inline-block;
+  width: 25%;
+  margin-top: 20px;
+  margin-left: 200px;
+  height: 250px;
+  width: 40%;
+}
+
+.footer {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+#flex-1 {
+  display: flex;
+  flex: 1;
+}
+
+#flex-2 {
+  display: flex;
+  flex: 1;
+}
