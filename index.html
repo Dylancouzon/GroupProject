@@ -13,22 +13,29 @@
     <link rel="stylesheet" href="assets/css/maps.css" />
 </head>
 <body>
-    <header>
-        <!-- Insert logo here -->
-        <!-- Insert title here -->
-        <h1 class="title is-1">COVID-19 Vaccine Tracker</h1>
-        <!-- Insert subtitle here -->
-        <h2 class="subtitle is-4">Stay one step ahead of the virus. Stay informed!</h2>
-    </header>
-    <div class="container is-marginless">
-        <form class="searchArea">
+    <section class="hero has-background-primary">
+        <div class="hero-body">
+            <div class="container">
+                  <!-- Insert logo here -->
+                <figure class="image center">
+                    <img src="logo2.png" style="max-width: 350px;">
+                </figure>
+                <!-- Insert title here -->
+                <h1 class="title is-1">COVID-19 Vaccine Tracker</h1>
+                <!-- Insert subtitle here -->
+                <h2 class="subtitle is-4">Stay one step ahead of the virus. Stay informed!</h2>
+            </div>
+        </div>
+    </section>
+        <!-- Input container for "Search by State:" section -->
+    <div class="container-2 is-marginless is-fullhd">
+        <form class="notification is-light">
             <h3 class="label">Search by State:</h3>
-            <input class="searchBox" type="text" id="state" name="state"><br>
+            <input class="input is-normal" type="text" placeholder="State"><br>
             <button class="searchButton">Search</button>
         </form>
     </div>
-
-
+    <!-- Input map -->
     <!-- <div id="mapContainer">
         <div id="legend">
             <div id="census-min">min</div>
@@ -42,7 +49,7 @@
             <span id="data-value"></span>
         </div>
     </div> -->
-
+        <!-- Input dropdown menu -->
 
 
     <!-- Input jQuery link -->
