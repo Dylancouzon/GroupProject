@@ -19,7 +19,13 @@
     align-items: center;
 }
 
-.container-1 {
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtitle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,6 +36,13 @@
     justify-content: left;
     align-items: center;
     margin-left: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.dropdown {
+    margin-left: 10px;
+    margin-bottom: 50px;
 }
 
 .box {
@@ -101,19 +114,6 @@
               </div>
             </div>
           </div>
-      
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </nav>
     <!-- Input container for "Search by State:" section -->
@@ -125,7 +125,7 @@
         </form>
     </div>
     <!-- Input map -->
-    <!-- <div id="mapContainer">
+    <div id="mapContainer">
         <div id="legend">
             <div id="census-min">min</div>
             <div class="color-key"><span id="data-caret">&#x25c6;</span></div>
@@ -137,7 +137,7 @@
             <label id="data-label" for="data-value"></label>
             <span id="data-value"></span>
         </div>
-    </div> -->
+    </div>
     <!-- Input dropdown menu -->
     <div class="dropdown is-hoverable">
         <div class="dropdown-trigger">
@@ -178,7 +178,7 @@
     <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <strong>The Vaccinator</strong> by <a href="https://github.com/rtmiranda18">Reesh Miranda</a>, <a href="">Dylan Couzon</a> and <a href="">Manuel Villasenor</a>.
+            <strong>The Vaccinator</strong> by <a href="https://github.com/rtmiranda18">Reesh Miranda</a>, <a href="https://github.com/Dylancouzon">Dylan Couzon</a> and <a href="https://github.com/manuelvrsr">Manuel Villasenor</a>.
           </p>
         </div>
     </footer>
