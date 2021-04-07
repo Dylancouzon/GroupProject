@@ -1,23 +1,31 @@
 var returnCovidData;
 var returnVaccineData;
-var censusValue;
+var map;
 var mapData = {};
+var oldData = [];
 var date = getDate();
 var vaccineUrl = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
+var censusMin = 100;
+var censusMax = 0;
+var timer = 300;
 
-// Just to avoid any bugs
-//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, 100);
-//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, 100);
-
-//Temporarily run the function
-runAPIs("California");
+// setTimeout Just to avoid any bugs, Increase the timer var if some values return undefined
+// returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
+//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, timeout);
+// returnCovidData = [confirmed, recovered, deaths];
+//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, timeout);
+// oldData = [This month, Month-1, Month-2, Month-3];
+//setTimeout(function(){ console.log(oldData); }, timeout);
 
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     //Need to add a function that checks if the Name is valid
-    getCovidData(stateName);
-    getVaccineData(stateName);
-    
+    if(stateName){
+        getCovidData(stateName);
+        getVaccineData(stateName, date);
+        setTimeout(function () { initMap(); }, timer);
+        $("#mapContainer").css("display", "block");
+    }
 }
 
 /**
@@ -39,20 +47,19 @@ function getCovidData(stateName) {
             var covidData = JSON.parse(this.response);
 
             //Returns the confirmed, recovered and deaths in the last 24hrs   
-                    
             for (i = 0; i < covidData[0].provinces.length; i++) {
                 if (covidData[0].provinces[i].province == stateName) {
+
                     // returnCovidData = [confirmed, recovered, deaths];
                     returnCovidData = [covidData[0].provinces[i].confirmed, covidData[0].provinces[i].recovered, covidData[0].provinces[i].deaths];
-                    //returnData(returnCovidData, false);
                     //Break the loop once we have the value needed
                     break;
                 }
             }
-            
+
         }
     });
-    
+
     // XMLHttpRequest
     xhr.open("GET", "https://covid-19-data.p.rapidapi.com/report/country/name?date=2020-04-01&name=USA");
     xhr.setRequestHeader("x-rapidapi-key", "af9daf036amsh4c7360d9db21318p14bbcajsn1c70e54a7721");
@@ -66,27 +73,53 @@ function getCovidData(stateName) {
  * 
  */
 // Get the vaccine Data csv file and parse it into Json.
-function getVaccineData(stateName) {
-        //Parse the csv Data into Json
+function getVaccineData(stateName, date) {
+    //Parse the csv Data into Json
     Papa.parse(vaccineUrl, {
         download: true,
         complete: function (results) {
+
             //need to look inside the array where results.data.date == date and results.data.stateName == statename
-            for (i = 0; i < results.data.length; i++) {
+            for (i = 0; i < results.data.length - 1; i++) {
+                for (j = 0; j < 4; j++) {
+                    if (results.data[i][0] == getDate(-j)) {
+                        oldData[j] = results.data[i][4];
+                    }
+                }
+
+
+
                 //Return an object for the map
-                if(results.data[i][0] == date){
-                    //use return data
-                    //Correct a difference in Key name
-                    if(results.data[i][1] == "New York State"){
-                        mapData["New York"] = results.data[i][5];
-                    }else{
-                    mapData[results.data[i][1]] = results.data[i][5];
+                if (results.data[i][0] == date) {
+                    // Exclude Federated States of Micronesia because technically not a state
+                    if (results.data[i][1] != "Federated States of Micronesia") {
+                        //use return data
+                        //Correct a difference in Key name
+                        if (results.data[i][1] == "New York State") {
+
+                            mapData["New York"] = results.data[i][5];
+
+                        } else {
+
+                            mapData[results.data[i][1]] = results.data[i][5];
+
+                        }
+
+                        //Set the censusMin
+                        if (parseInt(results.data[i][5]) < censusMin && results.data[i][5]) {
+                            censusMin = results.data[i][5];
+                        }
+
+                        //Set the censusMax
+                        if (parseInt(results.data[i][5]) > censusMax) {
+                            censusMax = results.data[i][5];
+                        }
                     }
                 }
                 //Return the array with all the values for the main box
                 if (results.data[i][0] == date && results.data[i][1] == stateName) {
                     // returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
-                        returnVaccineData = [results.data[i][2], results.data[i][4], results.data[i][5], results.data[i][7], results.data[i][11]];
+                    returnVaccineData = [results.data[i][2], results.data[i][4], results.data[i][5], results.data[i][7], results.data[i][11]];
 
                 }
             }
@@ -98,10 +131,25 @@ function getVaccineData(stateName) {
 
 //Get today's date
 // Function based on https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-function getDate() {
+function getDate(prevMonth) {
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
+
+    // Return an anterior date for the Graph API
+    if (prevMonth) {
+        var month = 1 + prevMonth;
+    } else {
+        var month = 1;
+    }
+
+    // Because the data doesn't start till mid January, we are not able to get any result back if we look before at a day before the start date.
+    if (prevMonth === -3) {
+        var dd = 20;
+    } else {
+        //Picks the date of yesterday
+        var dd = String(today.getDate() - 1).padStart(2, '0');
+    }
+
+    var mm = String(today.getMonth() + month).padStart(2, '0');
     var yyyy = today.getFullYear();
 
     today = yyyy + "-" + mm + "-" + dd;
@@ -114,24 +162,11 @@ function getDate() {
  * 
  * 
  */
-
-// function styleFeature is a loop, don't know why but it is.
-// feature.i.NAME for the name of the state in the Data 
-// So a call to the function getVaccineData(stateName) should get us everything we need
-// if (censusVariable < censusMin) {censusMin = censusVariable; } function to add inside getVaccineData to know min and max
-
-// Temporary values
-var censusMin = 13.33;
-var censusMax = 26.19;
-var censusValue;
-// Actual code
-var map;
-
 // Initialize and add the map
 function initMap() {
-   
+
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
+        zoom: 3,
         //Center the map on the USA
         center: { lat: 40, lng: -100 },
     });
@@ -163,9 +198,6 @@ function styleFeature(feature) {
     const high = [151, 83, 34]; // color of largest datum
     let name = feature.i.NAME;
     //Get the census value
-    // Attribute random value until getVaccineData bug fix
-    // censusValue = Math.floor(Math.random() * 13)+13;
-    //console.log(censusValue);
     // delta represents where the value sits between the min and max
     const delta =
         (mapData[name] - censusMin) /
@@ -218,4 +250,3 @@ function mouseOutOfRegion(e) {
 }
 
 // Init the map after 50ms to make sure the data is loaded first
-setTimeout(function(){ initMap(); }, 100);
