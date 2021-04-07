@@ -1,12 +1,12 @@
 var returnCovidData;
 var returnVaccineData;
 var map;
-var censusMin = 100;
-var censusMax = 0;
 var mapData = {};
+var oldData = [];
 var date = getDate();
 var vaccineUrl = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv";
-var oldData = [];
+var censusMin = 100;
+var censusMax = 0;
 var timer = 300;
 
 // setTimeout Just to avoid any bugs, Increase the timer var if some values return undefined
@@ -17,15 +17,15 @@ var timer = 300;
 // oldData = [This month, Month-1, Month-2, Month-3];
 //setTimeout(function(){ console.log(oldData); }, timeout);
 
-//Temporarily run the function
-runAPIs("California");
-
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     //Need to add a function that checks if the Name is valid
-    getCovidData(stateName);
-    getVaccineData(stateName, date);
-
+    if(stateName){
+        getCovidData(stateName);
+        getVaccineData(stateName, date);
+        setTimeout(function () { initMap(); }, timer);
+        $("#mapContainer").css("display", "block");
+    }
 }
 
 /**
@@ -250,4 +250,3 @@ function mouseOutOfRegion(e) {
 }
 
 // Init the map after 50ms to make sure the data is loaded first
-setTimeout(function () { initMap(); }, timer);
