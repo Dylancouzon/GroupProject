@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    
     <section class="hero is-small has-background-primary" id="logo">
         <div class="hero-body">
             <div class="container">
@@ -24,11 +25,6 @@
             </div>
         </div>
     </section>
-    <!-- Input title and tagline -->
-    <div class="box has-background-light" id="title">
-        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
-        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
-    </div>
     <!-- Input Navbar -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -60,7 +56,14 @@
             </a>
           </div>
         </div>
-      </nav>
+    </nav>
+    <!-- Input title and tagline -->
+    <div class="box has-background-light" id="title">
+        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
+        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
+    </div>
+    <div class="row">
+    <div class="column">
     <!-- Input container for "Search by State:" section -->
     <div class="container-2" id="search">
         <form class="notification is-light">
@@ -69,7 +72,6 @@
             <button class="button is-primary">Search</button>
         </form>
     </div>
-    <div class="flex-container" id="flex-1">
     <!-- Input dropdown menu -->
     <form class="box has-background-light" id="dropdown">
         <div class="dropdown is-hoverable">
@@ -91,13 +93,6 @@
             </div>
         </div>
     </form>
-    <!-- Input box for additional information -->
-    <div class="box has-background-light" id="info">
-        COVID-19 Vaccine Information
-        <ul class="list"></ul>
-    </div>
-    </div>
-    <div class="flex-container" id="flex-2">
     <!-- Input map -->
     <div id="mapContainer">
         <div id="legend">
@@ -111,6 +106,13 @@
             <label id="data-label" for="data-value"></label>
             <span id="data-value"></span>
         </div>
+    </div>
+    </div>
+    <div class="column">
+    <!-- Input box for additional information -->
+    <div class="box has-background-light" id="info">
+        State Information
+        <ul class="list"></ul>
     </div>
     <!-- Input Vaccination Center Search -->
     <form class="box has-background-light" id="field">
@@ -128,9 +130,10 @@
             <input class="input" type="city" placeholder="City">
           </div>
         </div>
-      
+    
         <button class="button is-primary">Submit</button>
     </form>
+    </div>
     </div>
     <!-- Insert footer -->
     <footer class="footer" id="footer">
