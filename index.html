@@ -29,11 +29,14 @@
     display: flex;
     justify-content: left;
     align-items: center;
+    margin-left: 10px;
 }
 
 .box {
     display: inline-block;
     width: 50%;
+    margin-top: 50px;
+    margin-left: 200px;
 } 
 
     </style>
@@ -54,8 +57,67 @@
         <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1><br>
         <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
     </section>
-        <!-- Input container for "Search by State:" section -->
-    <div class="container-2 is-marginless is-fullhd">
+    <!-- Input Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io"></a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              About
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Search by State
+                </a>
+                <a class="navbar-item">
+                  Vaccine Centers
+                </a>
+                <a class="navbar-item">
+                  Contact Us
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <!-- Input container for "Search by State:" section -->
+    <div class="container-2">
         <form class="notification is-warning">
             <h3 class="label-1">Search by State:</h3>
             <input class="input is-normal" type="text" placeholder="State"><br>
