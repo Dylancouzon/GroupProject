@@ -13,10 +13,16 @@
     <link rel="stylesheet" href="assets/css/maps.css" />
     <style>
 
+body {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #F0FFF0;
+}
+
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100px;
 }
 
 .title {
@@ -32,7 +38,8 @@
 }
 
 .navbar {
-    margin-left: 300px;
+    margin-left: 360px;
+    margin-right: 340px;
     margin-bottom: 20px;
 }
 
@@ -42,7 +49,7 @@
     align-items: center;
     margin-left: 10px;
     margin-bottom: 20px;
-    width: 50%;
+    width: 25%;
 }
 
 .button {
@@ -54,17 +61,61 @@
     margin-bottom: 50px;
 }
 
-.box {
+#title {
     display: inline-block;
     width: 50%;
     margin-top: 20px;
     margin-left: 325px;
 } 
 
+#dropdown {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 250px;
+    margin-bottom: 20px;
+    width: 25%;
+}
+
+#info {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 25%
+}
+
+#field {
+    display: inline-block;
+    width: 25%;
+    margin-top: 20px;
+    margin-left: 200px;
+    height: 250px;
+    width: 40%;
+}
+
+.footer {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+#flex-1 {
+    display: flex;
+    flex: 1;
+}
+
+#flex-2 {
+    display: flex;
+    flex: 1;
+}
     </style>
 </head>
+
 <body>
-    <section class="hero is-small has-background-primary">
+    <section class="hero is-small has-background-primary" id="logo">
         <div class="hero-body">
             <div class="container">
                   <!-- Insert logo here -->
@@ -75,7 +126,7 @@
         </div>
     </section>
     <!-- Input title and tagline -->
-    <div class="box has-background-light">
+    <div class="box has-background-light" id="title">
         <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
         <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
     </div>
@@ -93,39 +144,64 @@
       
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item" href="#logo">
               Home
             </a>
-      
-            <a class="navbar-item">
-              About
-            </a>
-      
-            
-            <a class="navbar-item">
+            <a class="navbar-item" href="#search">
                 Search by State
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="#mapContainer">
+                Map
+              </a>
+            <a class="navbar-item" href="#field">
                 Vaccine Centers
             </a>
-            <a class="navbar-item">
-                Contact Us
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-                Report an issue
+            <a class="navbar-item" href="#footer">
+                Collaborators
             </a>
           </div>
         </div>
       </nav>
     <!-- Input container for "Search by State:" section -->
-    <div class="container-2">
+    <div class="container-2" id="search">
         <form class="notification is-light">
             <h3 class="label-1">Search by State:</h3>
             <input class="input is-normal" type="text" placeholder="State"><br>
             <button class="button is-primary">Search</button>
         </form>
     </div>
+    <div class="flex-container" id="flex-1">
+    <!-- Input dropdown menu -->
+    <form class="box has-background-light" id="dropdown">
+        <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+                <h3>Search History:</h3>
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Search</span>
+                    <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                <div class="dropdown-content">
+                <div class="dropdown-item">
+                    <p></p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Input box for additional information -->
+    <div class="box has-background-light" id="info">
+        COVID-19 Vaccine Information
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    </div>
+    <div class="flex-container" id="flex-2">
     <!-- Input map -->
     <div id="mapContainer">
         <div id="legend">
@@ -140,25 +216,8 @@
             <span id="data-value"></span>
         </div>
     </div>
-    <!-- Input dropdown menu -->
-    <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-            <span>Pick a State</span>
-                <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-            <div class="dropdown-item">
-                <p></p>
-            </div>
-            </div>
-        </div>
-    </div>
-    <form class="box has-background-light">
+    <!-- Input Vaccination Center Search -->
+    <form class="box has-background-light" id="field">
         <h3 class="heading">Vaccination Centers by State:</h3>
         <div class="field">
           <label class="label-2">State:</label>
@@ -175,9 +234,10 @@
         </div>
       
         <button class="button is-primary">Submit</button>
-      </form>
+    </form>
+    </div>
     <!-- Insert footer -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="content has-text-centered">
           <p>
             <strong>The Vaccinator</strong> by <a href="https://github.com/rtmiranda18">Reesh Miranda</a>, <a href="https://github.com/Dylancouzon">Dylan Couzon</a> and <a href="https://github.com/manuelvrsr">Manuel Villasenor</a>.
