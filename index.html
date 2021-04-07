@@ -11,26 +11,53 @@
     <link rel="stylesheet" href="assets/css/css.css" />
     <!-- Maps API CSS link -->
     <link rel="stylesheet" href="assets/css/maps.css" />
+    <style>
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-2 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.box {
+    display: inline-block;
+    width: 50%;
+} 
+
+    </style>
 </head>
 <body>
-    <section class="hero has-background-primary">
+    <section class="hero is-small has-background-primary">
         <div class="hero-body">
             <div class="container">
                   <!-- Insert logo here -->
                 <figure class="image center">
-                    <img src="logo2.png" style="max-width: 350px;">
+                    <img src="logo2.png" style="max-width: 256px;">
                 </figure>
-                <!-- Insert title here -->
-                <h1 class="title is-1">COVID-19 Vaccine Tracker</h1>
-                <!-- Insert subtitle here -->
-                <h2 class="subtitle is-4">Stay one step ahead of the virus. Stay informed!</h2>
             </div>
         </div>
     </section>
+    <!-- Input title and tagline -->
+    <section class="container-1">
+        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1><br>
+        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
+    </section>
         <!-- Input container for "Search by State:" section -->
     <div class="container-2 is-marginless is-fullhd">
-        <form class="notification is-light">
-            <h3 class="label">Search by State:</h3>
+        <form class="notification is-warning">
+            <h3 class="label-1">Search by State:</h3>
             <input class="input is-normal" type="text" placeholder="State"><br>
             <button class="searchButton">Search</button>
         </form>
@@ -67,6 +94,24 @@
             </div>
         </div>
     </div>
+    <form class="box has-background-danger">
+        <h3 class="heading">Vaccination Centers by State:</h3>
+        <div class="field">
+          <label class="label-2">State:</label>
+          <div class="control">
+            <input class="input" type="state" placeholder="State">
+          </div>
+        </div>
+      
+        <div class="field">
+          <label class="label-2">City:</label>
+          <div class="control">
+            <input class="input" type="city" placeholder="City">
+          </div>
+        </div>
+      
+        <button class="button is-primary">Submit</button>
+      </form>
     <!-- Insert footer -->
     <footer class="footer">
         <div class="content has-text-centered">
