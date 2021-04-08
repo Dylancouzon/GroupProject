@@ -11,23 +11,23 @@ var timer = 300;
 
 // setTimeout Just to avoid any bugs, Increase the timer var if some values return undefined
 // returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
-//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, timeout);
-// returnCovidData = [confirmed, recovered, deaths];
-//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, timeout);
+//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, timer);
+// returnCovidData = [confirmed, recovered, deaths, todayCases, todayDeaths];
+//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, timer);
 // oldData = [This month, Month-1, Month-2, Month-3];
-//setTimeout(function(){ console.log(oldData); }, timeout);
+//setTimeout(function(){ console.log(oldData); }, timer);
 
+//runAPIs("Arizona");
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
-    //Need to add a function that checks if the Name is valid
-    if(stateName){
+    if (stateName) {
         getCovidData(stateName);
         getVaccineData(stateName, date);
+        getVaccineLocationData(stateName);
         setTimeout(function () { initMap(); }, timer);
         $("#mapContainer").css("display", "block");
     }
 }
-
 /**
  * 
  * Covid Data
@@ -37,34 +37,24 @@ function runAPIs(stateName) {
 // Api call to get the covid Data using the XMLHttpRequest Object
 //Return the result with renderCovidData 
 function getCovidData(stateName) {
-    const data = null;
+let settings = {
+    "url": "https://corona.lmao.ninja/v2/states?sort&yesterday",
+    "method": "GET",
+    "timeout": 0,
+  };
+  
+  $.ajax(settings).done(function (response) {
 
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    for (i = 0; i < response.length; i++) {
+        if (response[i].state == stateName) {
 
-    xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === this.DONE) {
-            var covidData = JSON.parse(this.response);
-
-            //Returns the confirmed, recovered and deaths in the last 24hrs   
-            for (i = 0; i < covidData[0].provinces.length; i++) {
-                if (covidData[0].provinces[i].province == stateName) {
-
-                    // returnCovidData = [confirmed, recovered, deaths];
-                    returnCovidData = [covidData[0].provinces[i].confirmed, covidData[0].provinces[i].recovered, covidData[0].provinces[i].deaths];
-                    //Break the loop once we have the value needed
-                    break;
-                }
-            }
-
+            // returnCovidData = [confirmed, recovered, deaths, todayCases, todayDeaths];
+            returnCovidData = [response[i].cases, response[i].recovered, response[i].deaths, response[i].todayCases, response[i].todayDeaths];
+            //Break the loop once we have the value needed
+            break;
         }
-    });
-
-    // XMLHttpRequest
-    xhr.open("GET", "https://covid-19-data.p.rapidapi.com/report/country/name?date=2020-04-01&name=USA");
-    xhr.setRequestHeader("x-rapidapi-key", "af9daf036amsh4c7360d9db21318p14bbcajsn1c70e54a7721");
-    xhr.setRequestHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com");
-    xhr.send(data);
+    }
+  });
 }
 /**
  * 
@@ -74,6 +64,7 @@ function getCovidData(stateName) {
  */
 // Get the vaccine Data csv file and parse it into Json.
 function getVaccineData(stateName, date) {
+    
     //Parse the csv Data into Json
     Papa.parse(vaccineUrl, {
         download: true,
@@ -91,7 +82,7 @@ function getVaccineData(stateName, date) {
 
                 //Return an object for the map
                 if (results.data[i][0] == date) {
-                    // Exclude Federated States of Micronesia because technically not a state
+                    // Exclude Federated States of Micronesia because technically not part of the USA
                     if (results.data[i][1] != "Federated States of Micronesia") {
                         //use return data
                         //Correct a difference in Key name
@@ -127,6 +118,53 @@ function getVaccineData(stateName, date) {
     });
 
 }
+
+// Get the Vaccination centers data from https://www.vaccinespotter.org/api
+function getVaccineLocationData(stateName) {
+    fetch("https://www.vaccinespotter.org/api/v0/states.json")
+        .then(response => {
+            return response.json();
+        })
+        .then(function (data) {
+            //Creates The title and the ul Element
+            let otherHalf = false;
+            let divEl = $("<div>").css("text-align","center");
+            let pEl = $("<h2 class='title is-2'>List of pharmacies providing vaccines in that state</h2>")
+            let ulEl = $("<ul>").addClass("locationList").css("float","left");
+            //Append it to the element with a class of centerbox
+            divEl.append(pEl, ulEl);
+            $(".centerbox").append(divEl);
+
+            
+            
+            // Iterate trough the data and look for pharmacies that provides vaccines in that state
+            for (i = 0; i < data.length; i++) {
+
+                if (data[i].name == stateName) {
+                    for (j = 0; j < data[i].provider_brands.length; j++) {
+                        let half = Math.ceil(data[i].provider_brands.length / 2);
+                        if (j == half) {
+                            var ulEl2 = $("<ul>").addClass("locationList2").css("width","50%").css("float","left");
+                            divEl.append(ulEl2);
+                            otherHalf = true;
+                        }
+                        // Create element
+                        let liEl = $(`<li><a href="${data[i].provider_brands[j].url}">${data[i].provider_brands[j].name}</a></li>`);
+
+                        if (otherHalf) {
+                            ulEl2.append(liEl);
+                        } else {
+                            ulEl.append(liEl);
+                        }
+                    }
+                }
+
+            }
+
+
+        });
+}
+
 
 
 //Get today's date
@@ -177,8 +215,8 @@ function initMap() {
     map.data.addListener("mouseout", mouseOutOfRegion);
 
     //Add the Min and Max values to the legend
-    document.getElementById("census-min").textContent = "Min: " + censusMin;
-    document.getElementById("census-max").textContent = "Max: " + censusMax;
+    document.getElementById("census-min").textContent = "Min: " + censusMin + "%";
+    document.getElementById("census-max").textContent = "Max: " + censusMax + "%";
 
     loadMapShapes();
 }
