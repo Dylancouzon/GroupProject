@@ -28,7 +28,7 @@ function runAPIs(stateName) {
     }
 }
 
-/**
+/**allData
  * 
  * Covid Data
  * 

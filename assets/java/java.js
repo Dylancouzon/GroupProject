@@ -76,21 +76,22 @@ function displayData (stateName) {
 
 }
 
-
 searchButtonDoc.on ('click', displayData)
 
 
 //********************Graph***************************
+
+var array = [1,2,55,88,]
 
 const CHART = $('#lineChart');
 console.log(CHART);
 let lineChart = new Chart(CHART, {
   type: 'line',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["April", "March", "February", "January"],
     datasets: [
         {
-            label: "My First dataset",
+            label: "percentage of people vaccinated",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75, 192, 192, 0.4)",
@@ -104,7 +105,7 @@ let lineChart = new Chart(CHART, {
             pointBorderWidth: 1,
             pointHoverRadius: 5,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data:array,
         }
     ]}
 
