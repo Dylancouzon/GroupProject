@@ -9,15 +9,11 @@ var censusMin = 100;
 var censusMax = 0;
 var timer = 300;
 
-// setTimeout Just to avoid any bugs, Increase the timer var if some values return undefined
 // returnVaccineData = Total number of shots given, number of people vaccinated, percentage of people vaccinated, number of people fully vaccinated, daily vaccinations
-//returnVaccineData = setTimeout(function(){ console.log(returnVaccineData); }, timer);
 // returnCovidData = [confirmed, recovered, deaths, todayCases, todayDeaths];
-//returnCovidData = setTimeout(function(){ console.log(returnCovidData); }, timer);
 // oldData = [This month, Month-1, Month-2, Month-3];
-//setTimeout(function(){ console.log(oldData); }, timer);
 
-//runAPIs("California");
+
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     if (stateName) {
@@ -120,6 +116,7 @@ function getVaccineLocationData(stateName) {
         })
         .then(function (data) {
             //Creates The title and the ul Element
+            $(".centerbox").html(" ");
             let otherHalf = false;
             let divEl = $("<div>").css("text-align","center");
             let pEl = $("<h2 class='title is-2'>List of pharmacies providing vaccines in that state</h2>")
