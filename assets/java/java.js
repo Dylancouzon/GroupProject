@@ -14,7 +14,10 @@
             
             
             function displayData (stateName) {
-                var stateName = searchTextAreaDoc.val();
+                
+              
+              
+              var stateName = searchTextAreaDoc.val();
               console.log (stateName);
               runAPIs (stateName) ;
             
@@ -114,12 +117,21 @@
             
             }
             
-            searchButtonDoc.on ('click', displayData)
+            function displayData2(){
+              var stateName = searchTextAreaDoc.val();
+              console.log(stateName);
+              runAPIs(stateName);
+              setTimeout(function(){ displayData(stateName);}, 300);             }
+
+            searchButtonDoc.on ('click', displayData2)
             
             //local storage... hopefully
             var stateHistory = []
-            function localStarageSave() {
-              localStorage.setItem ('stateName', searchTextAreaDoc.val())
+            function addLocalStorage() {
+              if ( $('#searchText').value.trim() != "" ) {
+                stateHistory.push ($('#searchText').value)
+                console.log(stateHistory)
+              }
               
             
             
