@@ -9,9 +9,9 @@
 var listAreaDoc = $('list')
 var searchTextAreaDoc = $('#search')
 var searchButtonDoc = $('#button')
-var userInput = searchTextAreaDoc.innerHTML
+var userInput = searchTextAreaDoc.text
 
-userInput 
+console.log(userInput) 
 // function turns first letter of every word into a capital letter
 
 function userInputCaps (userInput){ 
@@ -91,10 +91,28 @@ setTimeout (function displayData (userInputFinal) {
     listAreaDoc.append(Fact7List)
     listAreaDoc.append(Fact8List)
 
+
+
+
+    function arrayOfStringsToNumber (){
+
+
+      for ( i=0; i<allData.length; i++){
+        
+        var temp = allData[i]
+        
+        allData[i] = temp.parseInt ()
+
+        
+      }
+    
+    
+    
+    }
+
 //search history
 
  
-var allData
 
 },300)
 
@@ -103,17 +121,7 @@ var allData
 searchButtonDoc.addEventListener (click, diplayData())
 searchButtonDoc.addEventListener (click, runAPIs())
 
-function arrayOfStringsToNumber (){
 
-
-  for ( i=0; i<allData.length; i++){
-    var temp = allData[i]
-    allData[i] = temp.parseInt ()
-  }
-
-
-
-}
 
 //********************Graph***************************
 
@@ -179,15 +187,6 @@ const data = {
 };
 
 const actions = [
-    {
-      name: 'Randomize',
-      handler(chart) {
-        chart.data.datasets.forEach(dataset => {
-          dataset.data = Utils.numbers({count: chart.data.labels.length, min: 0, max: 100});
-        });
-        chart.update();
-      }
-    },
     {
       name: 'Add Dataset',
       handler(chart) {
