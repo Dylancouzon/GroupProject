@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    
     <section class="hero is-small has-background-primary" id="logo">
         <div class="hero-body">
             <div class="container">
@@ -39,7 +38,7 @@
       
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="#logo">
+            <a class="navbar-item" href="#title">
               Home
             </a>
             <a class="navbar-item" href="#search">
@@ -62,8 +61,9 @@
         <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
         <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
     </div>
+    <div>
+    <div class="column left">
     <div class="row">
-    <div class="column">
     <!-- Input container for "Search by State:" section -->
     <div class="container-2" id="search">
         <form class="notification is-light">
@@ -72,6 +72,8 @@
             <button class="button is-primary">Search</button>
         </form>
     </div>
+    </div>
+    <div class="row">
     <!-- Input dropdown menu -->
     <form class="box has-background-light" id="dropdown">
         <div class="dropdown is-hoverable">
@@ -93,6 +95,8 @@
             </div>
         </div>
     </form>
+    </div>
+    <div class="row">
     <!-- Input map -->
     <div id="mapContainer">
         <div id="legend">
@@ -108,13 +112,17 @@
         </div>
     </div>
     </div>
-    <div class="column">
+    </div>
+    <div class="column right">
+    <div class="row">
     <!-- Input box for additional information -->
     <div class="box has-background-light" id="info">
         State Information
         <ul class="list"></ul>
     </div>
+    </div>
     <!-- Input Vaccination Center Search -->
+    <div class="row">
     <form class="box has-background-light" id="field">
         <h3 class="heading">Vaccination Centers by State:</h3>
         <div class="field">
@@ -130,9 +138,9 @@
             <input class="input" type="city" placeholder="City">
           </div>
         </div>
-    
         <button class="button is-primary">Submit</button>
     </form>
+    </div>
     </div>
     </div>
     <!-- Insert footer -->

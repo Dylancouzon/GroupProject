@@ -1,6 +1,6 @@
 body {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  background-color: #F0FFF0;
+  background-color: #F5FFFA;
 }
 
 .center {
@@ -41,11 +41,6 @@ body {
   margin-top: 10px;
 }
 
-.dropdown {
-  margin-left: 10px;
-  margin-bottom: 50px;
-}
-
 #title {
   display: inline-block;
   width: 50%;
@@ -57,7 +52,7 @@ body {
   justify-content: left;
   align-items: center;
   margin-left: 10px;
-  margin-right: 250px;
+  margin-right: 20px;
   margin-bottom: 20px;
   width: 25%;
 }
@@ -76,7 +71,7 @@ body {
   display: inline-block;
   width: 25%;
   margin-top: 20px;
-  margin-left: 200px;
+  margin-left: 20px;
   height: 250px;
   width: 40%;
 }
@@ -89,12 +84,12 @@ body {
 
 .column {
   float: left;
-  width: 50%;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 40%;
 }
