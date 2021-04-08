@@ -41,3 +41,7 @@ body {
   margin-bottom: 20px;
   font-size: 20px;
 }
+
+.centerbox .title {
+  color: blue
+}
