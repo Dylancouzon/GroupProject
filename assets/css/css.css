@@ -28,14 +28,14 @@ body {
   margin-bottom: 20px;
 }
 
-.container-2 {
+/* .container-2 {
   display: flex;
   justify-content: left;
   align-items: center;
   margin-left: 10px;
   margin-bottom: 20px;
   width: 25%;
-}
+} */
 
 .button {
   margin-top: 10px;
@@ -45,8 +45,17 @@ body {
   display: inline-block;
   width: 50%;
   margin-left: 325px;
+  margin-top: 20px;
 } 
 
+#status {
+  margin-left: 10px;
+}
+
+#dropdown {
+
+}
+/* 
 #dropdown {
   display: flex;
   justify-content: left;
@@ -74,7 +83,7 @@ body {
   margin-left: 20px;
   height: 250px;
   width: 40%;
-}
+} */
 
 .footer {
   margin-top: 40px;
