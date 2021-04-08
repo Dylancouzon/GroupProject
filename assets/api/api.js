@@ -17,9 +17,10 @@ var timer = 300;
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     if (stateName) {
-        getCovidData(stateName);
-        getVaccineData(stateName, date);
         getVaccineLocationData(stateName);
+        getCovidData(stateName);
+        if(stateName == "New York"){stateName = "New York State";}
+        getVaccineData(stateName, date);
         setTimeout(function () { initMap(); }, timer);
         $("#mapContainer").css("display", "block");
     }
@@ -57,7 +58,7 @@ function getVaccineData(stateName, date) {
     Papa.parse(vaccineUrl, {
         download: true,
         complete: function (results) {
-
+            //console.log(results.data);
             //need to look inside the array where results.data.date == date and results.data.stateName == statename
             for (i = 0; i < results.data.length - 1; i++) {
                 // console.log(results.data[i]);
