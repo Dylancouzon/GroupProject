@@ -17,7 +17,7 @@ var timer = 300;
 // oldData = [This month, Month-1, Month-2, Month-3];
 //setTimeout(function(){ console.log(oldData); }, timer);
 
-//runAPIs("Arizona");
+//runAPIs("California");
 //Runs all the APis with the stateName
 function runAPIs(stateName) {
     if (stateName) {
@@ -34,26 +34,18 @@ function runAPIs(stateName) {
  * 
  * 
  */
-// Api call to get the covid Data using the XMLHttpRequest Object
+// Api call to get the covid Data using Ajax
 //Return the result with renderCovidData 
 function getCovidData(stateName) {
 let settings = {
-    "url": "https://corona.lmao.ninja/v2/states?sort&yesterday",
+    "url": "https://disease.sh/v3/covid-19/states/"+ stateName +"?yesterday=true",
     "method": "GET",
     "timeout": 0,
   };
   
   $.ajax(settings).done(function (response) {
-
-    for (i = 0; i < response.length; i++) {
-        if (response[i].state == stateName) {
-
             // returnCovidData = [confirmed, recovered, deaths, todayCases, todayDeaths];
-            returnCovidData = [response[i].cases, response[i].recovered, response[i].deaths, response[i].todayCases, response[i].todayDeaths];
-            //Break the loop once we have the value needed
-            break;
-        }
-    }
+            returnCovidData = [response.cases, response.recovered, response.deaths, response.todayCases, response.todayDeaths];
   });
 }
 /**
