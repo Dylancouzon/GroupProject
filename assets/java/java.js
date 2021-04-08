@@ -9,7 +9,8 @@
 var listAreaDoc = $('#list')
 var searchTextAreaDoc = $('#searchText')
 var searchButtonDoc = $('#searchButton')
-var stateName = 'california'
+var stateName = 'California'
+var historyDoc = $('#historyList')
 
 
 function displayData (stateName) {
@@ -68,13 +69,14 @@ function displayData (stateName) {
     Fact8List.append(Fact8List);
 
    
-    console.log(oldData)
+    console.log(oldData);
 
-    var newData = oldData.reverse()
+    var newData = oldData.reverse();
     
-    console.log(newData)
+    console.log(newData);
 
 
+//********************Graph***************************
 
 
 
@@ -85,7 +87,7 @@ function displayData (stateName) {
       data: {
         labels: ["January", "February", "March", "April"], //labels the x axis
         datasets: [
-            {
+            {   //everything here styles the graph
                 label: "number of people vaccinated",
                 fill: true,
                 lineTension: 0.1,
@@ -103,7 +105,7 @@ function displayData (stateName) {
                 pointBorderWidth: 1,
                 pointHoverRadius: 5,
                 pointHitRadius: 10,
-                
+                // input for data set
                 data: newData ,
             }
         ]}
@@ -114,9 +116,17 @@ function displayData (stateName) {
 
 searchButtonDoc.on ('click', displayData)
 
+//local storage... hopefully
+var stateHistory = []
+function localStarageSave() {
+  localStorage.setItem ('stateName', searchTextAreaDoc.val())
+  
+
+
+}
+
 //********************Graph***************************
 
-var array = [1,66,33,88,]
 
 
 
@@ -190,54 +200,4 @@ const data = {
   ]
 };
 
-const actions = [
-    {
-      name: 'Add Dataset',
-      handler(chart) {
-        const data = chart.data;
-        const dsColor = Utils.namedColor(chart.data.datasets.length);
-        const newDataset = {
-          label: 'Dataset ' + (data.datasets.length + 1),
-          backgroundColor: dsColor,
-          borderColor: dsColor,
-          data: Utils.numbers({count: data.labels.length, min: 0, max: 100}),
-        };
-        chart.data.datasets.push(newDataset);
-        chart.update();
-      }
-    },
-    {
-      name: 'Add Data',
-      handler(chart) {
-        const data = chart.data;
-        if (data.datasets.length > 0) {
-          data.labels = Utils.months({count: data.labels.length + 1});
-  
-          for (var index = 0; index < data.datasets.length; ++index) {
-            data.datasets[index].data.push(Utils.rand(0, 100));
-          }
-  
-          chart.update();
-        }
-      }
-    },
-    {
-      name: 'Remove Dataset',
-      handler(chart) {
-        chart.data.datasets.pop();
-        chart.update();
-      }
-    },
-    {
-      name: 'Remove Data',
-      handler(chart) {
-        chart.data.labels.splice(-1, 1); // remove the label first
-  
-        chart.data.datasets.forEach(dataset => {
-          dataset.data.pop();
-        });
-  
-        chart.update();
-      }
-    }
-  ];*/
+*/
