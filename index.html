@@ -11,107 +11,6 @@
     <link rel="stylesheet" href="assets/css/css.css" />
     <!-- Maps API CSS link -->
     <link rel="stylesheet" href="assets/css/maps.css" />
-    <style>
-
-body {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #F0FFF0;
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-}
-
-.title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.subtitle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.navbar {
-    margin-left: 360px;
-    margin-right: 340px;
-    margin-bottom: 20px;
-}
-
-.container-2 {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-left: 10px;
-    margin-bottom: 20px;
-    width: 25%;
-}
-
-.button {
-    margin-top: 10px;
-}
-
-.dropdown {
-    margin-left: 10px;
-    margin-bottom: 50px;
-}
-
-#title {
-    display: inline-block;
-    width: 50%;
-    margin-top: 20px;
-    margin-left: 325px;
-} 
-
-#dropdown {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-left: 10px;
-    margin-right: 250px;
-    margin-bottom: 20px;
-    width: 25%;
-}
-
-#info {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-left: 10px;
-    margin-bottom: 20px;
-    width: 25%
-}
-
-#field {
-    display: inline-block;
-    width: 25%;
-    margin-top: 20px;
-    margin-left: 200px;
-    height: 250px;
-    width: 40%;
-}
-
-.footer {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 20px;
-}
-
-#flex-1 {
-    display: flex;
-    flex: 1;
-}
-
-#flex-2 {
-    display: flex;
-    flex: 1;
-}
-    </style>
 </head>
 
 <body>
@@ -125,13 +24,8 @@ body {
             </div>
         </div>
     </section>
-    <!-- Input title and tagline -->
-    <div class="box has-background-light" id="title">
-        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
-        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
-    </div>
     <!-- Input Navbar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io"></a>
       
@@ -144,7 +38,7 @@ body {
       
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="#logo">
+            <a class="navbar-item" href="#title">
               Home
             </a>
             <a class="navbar-item" href="#search">
@@ -161,18 +55,130 @@ body {
             </a>
           </div>
         </div>
-      </nav>
-    <!-- Input container for "Search by State:" section -->
-    <div class="container-2" id="search">
+    </nav> -->
+    <!-- Input title and tagline -->
+    <div class="box" id="title">
+        <h1 class="title is-size-1">COVID-19 Vaccine Tracker</h1>
+        <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
+    </div>
+    <div>
+    <!-- Start here -->
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child box" id="status">
+                <p class="title">COVID-19 Vaccination Status</p>
+                <p class="subtitle">Search by State:</p>
+                        <input  id="searchText" class="input is-normal" type="text" placeholder="State"><br>
+                        <button id="searchButton" class="button is-primary">Search</button>
+                </div>
+              </article>
+              <article class="tile is-child box" id="dropdown">
+                <p class="title">Search History</p>
+                <p class="subtitle">___________</p>
+                    <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                            <!-- <h3>Search History:</h3> -->
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                            <span>Search</span>
+                                <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                            <div class="dropdown-content">
+                            <div class="dropdown-item">
+                                <p></p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child box">
+                <div class="content">
+                    <p class="title">COVID-19 Map</p>
+                    <p class="subtitle">Percentage of Vacinated Citizens</p>
+                </div>
+                <div id="mapContainer">
+                    <div id="legend">
+                        <div id="census-min">min</div>
+                        <div class="color-key"><span id="data-caret">&#x25c6;</span></div>
+                        <div id="census-max">max</div>
+                    </div>
+                
+                    <div id="map"></div>
+                    <div id="data-box" class="nicebox">
+                        <label id="data-label" for="data-value"></label>
+                        <span id="data-value"></span>
+                    </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">COVID-19 Facts</p>
+                <p class="subtitle">State Information</p>
+                <ul id="list">
+                  
+                  <li id="Fact1Lista"></li>
+                  <li id="Fact2Lista"></li>
+                  <li id="Fact3Lista"></li>
+                  <li id="Fact4Lista"></li>
+                  <li id="Fact5Lista"></li>
+                  <li id="Fact6Lista"></li>
+                  <li id="Fact7Lista"></li>
+                  <li id="Fact8Lista"></li>
+
+
+                </ul>
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <p class="title">COVID-19 Graph</p>
+            <p class="subtitle">Vaccination Data</p>
+          <!-- <form class="box has-background-light" id="field"> 
+            <h3 class="heading">Graph</h3>
+            <div class="field">
+              <label class="label-2">State:</label>
+              <div class="control">
+                <input class="input" type="state" placeholder="State">
+              </div>
+            </div>
+          
+            <div class="field">
+              <label class="label-2">City:</label>
+              <div class="control">
+                <input class="input" type="city" placeholder="City">
+              </div>
+            </div>
+            <button class="button is-primary">Submit</button>
+        </form> -->
+        </article>
+        </div>
+    </div>
+    <!-- End here -->
+    <!-- <div class="column left">
+    <div class="row"> -->
+        <!-- Input container for "Search by State:" section -->
+    <!-- <div class="container-2" id="search">
         <form class="notification is-light">
             <h3 class="label-1">Search by State:</h3>
-            <input id="searchText" class="input is-normal" type="text" placeholder="State"><br>
-            <button id="searchButton" class="button is-primary">Search</button>
+            <input class="input is-normal" type="text" placeholder="State"><br>
+            <button class="button is-primary">Search</button>
         </form>
     </div>
-    <div class="flex-container" id="flex-1">
-    <!-- Input dropdown menu -->
-    <form class="box has-background-light" id="dropdown">
+    </div>
+    <div class="row"> -->
+        <!-- Input dropdown menu -->
+    <!-- <form class="box has-background-light" id="dropdown">
         <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
                 <h3>Search History:</h3>
@@ -192,18 +198,10 @@ body {
             </div>
         </div>
     </form>
-    <!-- Input box for additional information -->
-    <div class="box has-background-light" id="info">
-        COVID-19 Vaccine Information
-        <ul class="list">
-            <li></li>
-            <li></li>
-        </ul>
     </div>
-    </div>
-    <div class="flex-container" id="flex-2">
-    <!-- Input map -->
-    <div id="mapContainer">
+    <div class="row"> -->
+        <!-- Input map -->
+    <!-- <div id="mapContainer">
         <div id="legend">
             <div id="census-min">min</div>
             <div class="color-key"><span id="data-caret">&#x25c6;</span></div>
@@ -216,7 +214,18 @@ body {
             <span id="data-value"></span>
         </div>
     </div>
-    <!-- Input Vaccination Center Search -->
+    </div>
+    </div>
+    <div class="column right">
+    <div class="row"> -->
+        <!-- Input box for additional information -->
+    <!-- <div class="box has-background-light" id="info">
+        State Information
+        <ul class="list"></ul>
+    </div>
+    </div> -->
+        <!-- Input Vaccination Center Search -->
+    <!-- <div class="row">
     <form class="box has-background-light" id="field">
         <h3 class="heading">Vaccination Centers by State:</h3>
         <div class="field">
@@ -232,10 +241,11 @@ body {
             <input class="input" type="city" placeholder="City">
           </div>
         </div>
-      
         <button class="button is-primary">Submit</button>
     </form>
     </div>
+    </div>
+    </div> -->
     <!-- Insert footer -->
     <footer class="footer" id="footer">
         <div class="content has-text-centered">
