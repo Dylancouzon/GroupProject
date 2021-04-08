@@ -30,7 +30,6 @@ function displayData (stateName) {
   stateShotsGiven = stateShotsGiven.toString();
   
   
-  console.log (returnVaccineData);
 
 
 
@@ -68,48 +67,57 @@ function displayData (stateName) {
     Fact7List.append(Fact7List);
     Fact8List.append(Fact8List);
 
+   
+    console.log(oldData)
+
+    var newData = oldData.reverse()
+    
+    console.log(newData)
 
 
 
 
 
+    const CHART = $('#lineChart');
+    console.log(CHART);
+    let lineChart = new Chart(CHART, {
+      type: 'line',
+      data: {
+        labels: ["January", "February", "March", "April"], //labels the x axis
+        datasets: [
+            {
+                label: "number of people vaccinated",
+                fill: true,
+                lineTension: 0.1,
+               
+                backgroundColor: "rgba(75, 192, 192, 0.4)",
+                
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHitRadius: 10,
+                
+                data: newData ,
+            }
+        ]}
+    
+    });
 
 }
 
 searchButtonDoc.on ('click', displayData)
 
-
 //********************Graph***************************
 
-var array = [1,2,55,88,]
+var array = [1,66,33,88,]
 
-const CHART = $('#lineChart');
-console.log(CHART);
-let lineChart = new Chart(CHART, {
-  type: 'line',
-  data: {
-    labels: ["April", "March", "February", "January"],
-    datasets: [
-        {
-            label: "percentage of people vaccinated",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75, 192, 192, 0.4)",
-            borderColor: "rgba(75, 192, 192, 1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHitRadius: 10,
-            data:array,
-        }
-    ]}
-
-});
 
 
 
@@ -183,15 +191,6 @@ const data = {
 };
 
 const actions = [
-    {
-      name: 'Randomize',
-      handler(chart) {
-        chart.data.datasets.forEach(dataset => {
-          dataset.data = Utils.numbers({count: chart.data.labels.length, min: 0, max: 100});
-        });
-        chart.update();
-      }
-    },
     {
       name: 'Add Dataset',
       handler(chart) {
