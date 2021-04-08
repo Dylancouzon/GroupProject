@@ -28,7 +28,9 @@ function displayData (stateName) {
 
   var stateShotsGiven = returnVaccineData [0];
   stateShotsGiven = stateShotsGiven.toString();
-  console.log (stateShotsGiven);
+  
+  
+  console.log (returnVaccineData);
 
 
 
@@ -41,17 +43,17 @@ function displayData (stateName) {
     var Fact4List = $('#Fact4Lista');
     var Fact5List = $('#Fact5Lista');
     var Fact6List = $('#Fact6Lista');
-    var Fact6List = $('#Fact7Lista');
-    var Fact6List = $('#Fact8Lista');
+    var Fact7List = $('#Fact7Lista');
+    var Fact8List = $('#Fact8Lista');
 
 
 
     Fact1List.text ('confirmed cases: ' + covidConfirmedCases  );
     Fact2List.text ('recovered: ' + covidRecoveredCases);
     Fact3List.text ('deaths: ' + covidDeathCases );
-    Fact4List.text ('number of shots state was given: ' + returnVaccineData [0] );
+    Fact4List.text ('number of vaccines state was given: ' + stateShotsGiven );
     Fact5List.text (' number of people vaccinated: ' + returnVaccineData [1] );
-    Fact6List.text ('percentage of people vacinated: ' + returnVaccineData [2] );
+    Fact6List.text ('percentage of people vacinated: ' + returnVaccineData [2] + '%'  );
     Fact7List.text ('number of people fully vaccinated: ' + returnVaccineData [3] );
     Fact8List.text ('amount of daily vaccinations: ' + returnVaccineData [4] );
 
@@ -75,11 +77,41 @@ function displayData (stateName) {
 }
 
 
+searchButtonDoc.on ('click', displayData)
+
+
 //********************Graph***************************
 
+const CHART = $('#lineChart');
+console.log(CHART);
+let lineChart = new Chart(CHART, {
+  type: 'line',
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75, 192, 192, 0.4)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHitRadius: 10,
+            data: [65, 59, 80, 81, 56, 55, 40],
+        }
+    ]}
+
+});
 
 
-searchButtonDoc.on ('click', displayData)
+
 
 
 
