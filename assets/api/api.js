@@ -64,8 +64,9 @@ function getVaccineData(stateName, date) {
 
             //need to look inside the array where results.data.date == date and results.data.stateName == statename
             for (i = 0; i < results.data.length - 1; i++) {
+                // console.log(results.data[i]);
                 for (j = 0; j < 4; j++) {
-                    if (results.data[i][0] == getDate(-j)) {
+                    if (results.data[i][0] == getDate(-j) && results.data[i][1] == stateName) {
                         oldData[j] = results.data[i][4];
                     }
                 }
