@@ -1,7 +1,7 @@
 /* Set the size of the div element that contains the map */
 #mapContainer {
-  height: 250px;
-  width: 250px;
+  height: 400px;
+  width: 400px;
   margin-left: 10px;
   margin-bottom: 50px;
 }

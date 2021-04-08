@@ -22,7 +22,7 @@ function runAPIs(stateName) {
         if(stateName == "New York"){stateName = "New York State";}
         getVaccineData(stateName, date);
         setTimeout(function () { initMap(); }, timer);
-        $("#mapContainer").css("display", "block");
+        $(".mapBox").css("display", "block");
     }
 }
 /**
@@ -195,7 +195,7 @@ function getDate(prevMonth) {
 function initMap() {
 
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 3,
+        zoom: 4,
         //Center the map on the USA
         center: { lat: 40, lng: -100 },
     });
