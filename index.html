@@ -70,8 +70,8 @@
               <article class="tile is-child box" id="status">
                 <p class="title">COVID-19 Vaccination Status</p>
                 <p class="subtitle">Search by State:</p>
-                        <input class="input is-normal" type="text" placeholder="State"><br>
-                        <button class="button is-primary">Search</button>
+                        <input id="searchText" class="input is-normal" type="text" placeholder="State"><br>
+                        <button id="searchButton" class="button is-primary">Search</button>
                 </div>
               </article>
               <article class="tile is-child box" id="dropdown">
@@ -80,6 +80,8 @@
                     <div class="dropdown is-hoverable">
                         <div class="dropdown-trigger">
                             <!-- <h3>Search History:</h3> -->
+                            <ul id="historyList">
+                            </ul>
                             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
                             <span>Search</span>
                                 <span class="icon is-small">
@@ -121,6 +123,16 @@
               <article class="tile is-child box">
                 <p class="title">COVID-19 Facts</p>
                 <p class="subtitle">State Information</p>
+                <ul id="list">
+                    <li id="Fact1Lista"></li>
+                    <li id="Fact2Lista"></li>
+                    <li id="Fact3Lista"></li>
+                    <li id="Fact4Lista"></li>
+                    <li id="Fact5Lista"></li>
+                    <li id="Fact6Lista"></li>
+                    <li id="Fact7Lista"></li>
+                    <li id="Fact8Lista"></li>
+                  </ul>
             </article>
             </div>
           </div>
@@ -135,6 +147,9 @@
           <article class="tile is-child box">
             <p class="title">COVID-19 Graph</p>
             <p class="subtitle">Vaccination Data</p>
+            <div style="width: 500px;">
+                <canvas id="lineChart" height="100px" width="100px"></canvas>
+            </div>
           <!-- <form class="box has-background-light" id="field"> 
             <h3 class="heading">Graph</h3>
             <div class="field">
