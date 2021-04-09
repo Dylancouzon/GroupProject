@@ -43,5 +43,5 @@ body {
 }
 
 .centerbox ul {
-  text-align: center;
+  justify-content: center;
 }
