@@ -8,10 +8,14 @@
     <title>The Vaccinator</title>
     <!-- Input bulma link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+
     <!-- Input CSS link-->
     <link rel="stylesheet" href="assets/css/css.css" />
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <!-- Maps API CSS link -->
     <link rel="stylesheet" href="assets/css/maps.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 </head>
 
 <body>
@@ -38,18 +42,24 @@
             <div class="tile">
                 <div class="tile is-parent is-vertical">
                     <!--  Input "Search by State:" section -->
-                    <article class="tile is-child box" id="status">
+                    <article class="tile is-child box " id="status">
                         <p class="title">COVID-19 Vaccine Status</p>
                         <p class="subtitle">Search by State:</p>
-                        <input id="searchText" class="input is-normal" type="text" placeholder="State"><br>
-                        <button id="searchButton" class="button is-primary">Search</button>
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input id="searchText" class="input" type="text" placeholder="State">
+                            </div>
+                            <div class="control" >
+                                <a id="searchButton" class="button is-info">Search</a>
+                            </div>
+                        </div>
                         <div id="error"></div>
                     </article>
                     <!-- Input dropdown menu -->
                     <article class="tile is-child box" id="dropdown">
                         <p class="title">Search History</p>
                         <p class="subtitle">___________</p>
-                        <ul id="historyList">
+                        <ul id="historyList" style="padding-left: 100px;">
                         </ul>
                     </article>
                     <!-- Input map -->
@@ -78,7 +88,7 @@
         <div class="tile is-parent">
             <!-- Input box for State information -->
             <article class="tile is-child box factsData">
-                <p class="title">COVID-19 Facts</p>
+                <p class="title stateTitle">COVID-19 Facts</p>
                 <p class="subtitle">State Information</p>
                 <div class="columns is-half">
                     <ul class="column" id="list">
@@ -139,7 +149,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

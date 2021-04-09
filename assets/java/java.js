@@ -10,15 +10,14 @@
             var searchButtonDoc = $('#searchButton');
             var stateName = 'California';
             var historyDoc = $('#historyList');
+            var historyButton = $('#dropdown');
             
             
             function displayData (stateName) {
                 
               
-              
+              $(".stateTitle").html(stateName);
               var stateName = searchTextAreaDoc.val();
-              console.log (stateName);
-              runAPIs (stateName) ;
             
               var covidConfirmedCases = returnCovidData[0];
               covidConfirmedCases = covidConfirmedCases.toString();
@@ -53,7 +52,7 @@
                 Fact1List.text ('confirmed cases: ' + covidConfirmedCases  );
                 Fact2List.text ('recovered: ' + covidRecoveredCases);
                 Fact3List.text ('deaths: ' + covidDeathCases );
-                Fact4List.text ('number of vaccines state was given: ' + stateShotsGiven );
+                Fact4List.text ('number of shots given: ' + stateShotsGiven );
                 Fact5List.text (' number of people vaccinated: ' + returnVaccineData [1] );
                 Fact6List.text ('percentage of people vacinated: ' + returnVaccineData [2] + '%'  );
                 Fact7List.text ('number of people fully vaccinated: ' + returnVaccineData [3] );
@@ -71,19 +70,16 @@
                 Fact8List.append(Fact8List);
             
                
-                console.log(oldData);
             
                 var newData = oldData.reverse();
                 
-                console.log(newData);
             
             
             //********************Graph***************************
             
-            
+            $('#lineChart').replaceWith($('<canvas id="lineChart" height="100px" width="100px"></canvas>'));
             
                 const CHART = $('#lineChart');
-                console.log(CHART);
                 let lineChart = new Chart(CHART, {
                   type: 'line',
                   data: {
@@ -142,39 +138,44 @@
               historyDoc.empty();
               for (var i = 0 ; i< stateHistory.length; i++) {
                 var createList = $('<li>');
-                createList.text(stateHistory [i]).addClass("button");
                 historyDoc.append(createList);
-                
+                var createButton = $('<button>');
+                createButton.text(stateHistory[i]).addClass("button").attr("id", stateHistory[i]);
+                createList.append(createButton);
               }
 
             }
-            
             //function for event listener
-            function displayData2(){
+            function displayData2(event){
+
               
-              var stateName = searchTextAreaDoc.val();
+              if(event.target.id == "searchButton"){
+                var stateName = searchTextAreaDoc.val();
+                
+              }else{
+                event.preventDefault();
+                var stateName = event.target.id;
+              }
               var displayErrorDoc = $('#error');
 
-              console.log(stateName);
-
+              
               var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
              
 
                 if (states.includes(stateName)){
-                  console.log("test");
                   displayErrorDoc.empty();
 
                   displayErrorDoc.append(displayErrorDoc);
 
                   runAPIs(stateName);
                   setTimeout(function(){ displayData(stateName);}, 300); 
-                  addToArray();            
+                  if(event.target.id == "searchButton"){addToArray();}            
 
                  
 
                 }
                 else{
-                  displayErrorDoc.text('please enter state name correctly');
+                  displayErrorDoc.text('Please enter a valid State name');
                 displayErrorDoc.css (  'color', 'red' );
                 displayErrorDoc.append(displayErrorDoc);
                 }
@@ -186,7 +187,7 @@
 
             
             
-            historyDoc.on ('click', addToArray);
-
+            
+            historyButton.on ('click', displayData2);
             searchButtonDoc.on ('click', displayData2);
             searchList ();
