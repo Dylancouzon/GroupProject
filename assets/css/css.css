@@ -10,6 +10,13 @@ body {
   height: 100px;
 }
 
+.factsData ul{
+  font-size: 1.2em;
+}
+
+#historyList .button{
+  min-width: 200px;
+}
 .title {
   display: flex;
   justify-content: center;
@@ -22,9 +29,6 @@ body {
   align-items: center;
 }
 
-.button {
-  margin-top: 10px;
-}
 
 #title {
   display: inline-block;
@@ -42,8 +46,14 @@ body {
   font-size: 20px;
 }
 
-.centerbox ul {
+
+.centerbox{
   position: relative;
   top: 20 px;
+  
+}
+
+.centerbox .locationList{
+  margin-left: 170px;
 
 }

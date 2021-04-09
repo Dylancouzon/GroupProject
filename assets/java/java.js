@@ -1,25 +1,23 @@
 // create list below search bar that shows previous searches
-    //
     //will be saved on local storage
 //add event listener to search button, and if clicked, run function DisplayData()
     //run funciton  that will display both the map and the graph for that specific state
     // the right side will parse out the data by state
         //will have 50 different if statements saying that if search = statename, then display the data for that specific state
             //inside if statement: beneath the graph area, we will create a list of different vaccination facts for that given state
-            var listAreaDoc = $('#list')
-            var searchTextAreaDoc = $('#searchText')
-            var searchButtonDoc = $('#searchButton')
-            var stateName = 'California'
-            var historyDoc = $('#historyList')
+            var listAreaDoc = $('#list');
+            var searchTextAreaDoc = $('#searchText');
+            var searchButtonDoc = $('#searchButton');
+            var stateName = 'California';
+            var historyDoc = $('#historyList');
+            var historyButton = $('#dropdown');
             
             
             function displayData (stateName) {
                 
               
-              
+              $(".stateTitle").html(stateName);
               var stateName = searchTextAreaDoc.val();
-              console.log (stateName);
-              runAPIs (stateName) ;
             
               var covidConfirmedCases = returnCovidData[0];
               covidConfirmedCases = covidConfirmedCases.toString();
@@ -54,7 +52,7 @@
                 Fact1List.text ('confirmed cases: ' + covidConfirmedCases  );
                 Fact2List.text ('recovered: ' + covidRecoveredCases);
                 Fact3List.text ('deaths: ' + covidDeathCases );
-                Fact4List.text ('number of vaccines state was given: ' + stateShotsGiven );
+                Fact4List.text ('number of shots given: ' + stateShotsGiven );
                 Fact5List.text (' number of people vaccinated: ' + returnVaccineData [1] );
                 Fact6List.text ('percentage of people vacinated: ' + returnVaccineData [2] + '%'  );
                 Fact7List.text ('number of people fully vaccinated: ' + returnVaccineData [3] );
@@ -72,19 +70,16 @@
                 Fact8List.append(Fact8List);
             
                
-                console.log(oldData);
             
                 var newData = oldData.reverse();
                 
-                console.log(newData);
             
             
             //********************Graph***************************
             
-            
+            $('#lineChart').replaceWith($('<canvas id="lineChart" height="100px" width="100px"></canvas>'));
             
                 const CHART = $('#lineChart');
-                console.log(CHART);
                 let lineChart = new Chart(CHART, {
                   type: 'line',
                   data: {
@@ -117,95 +112,82 @@
             
             }
             
-            function displayData2(){
-              var stateName = searchTextAreaDoc.val();
-              console.log(stateName);
-              runAPIs(stateName);
-              setTimeout(function(){ displayData(stateName);}, 300);             }
 
-            searchButtonDoc.on ('click', displayData2)
+             //local storage... hopefully
+
+             var stateHistory = JSON.parse(localStorage.getItem ("arrayList") );
             
-            //local storage... hopefully
-            var stateHistory = []
-            function addLocalStorage() {
-              if ( $('#searchText').value.trim() != "" ) {
-                stateHistory.push ($('#searchText').value)
-                console.log(stateHistory)
+            if ( !stateHistory ) {
+              stateHistory = [];
+              console.log('test');
+            }
+
+            function addToArray() {
+              if (searchTextAreaDoc.value != "" ) {
+                stateHistory.unshift (searchTextAreaDoc.val());
+                console.log(stateHistory);
+                stateHistory = stateHistory.slice(0,5);
+                localStorage.setItem("arrayList",JSON.stringify(stateHistory));
+                searchList();
+                
               }
-              
-            
-            
+          
             }
             
-            //********************Graph***************************
+            function searchList() {
+              historyDoc.empty();
+              for (var i = 0 ; i< stateHistory.length; i++) {
+                var createList = $('<li>');
+                historyDoc.append(createList);
+                var createButton = $('<button>');
+                createButton.text(stateHistory[i]).addClass("button").attr("id", stateHistory[i]);
+                createList.append(createButton);
+              }
+
+            }
+            //function for event listener
+            function displayData2(event){
+
+              
+              if(event.target.id == "searchButton"){
+                var stateName = searchTextAreaDoc.val();
+                
+              }else{
+                event.preventDefault();
+                var stateName = event.target.id;
+              }
+              var displayErrorDoc = $('#error');
+
+              
+              var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+             
+
+                if (states.includes(stateName)){
+                  displayErrorDoc.empty();
+
+                  displayErrorDoc.append(displayErrorDoc);
+
+                  runAPIs(stateName);
+                  setTimeout(function(){ displayData(stateName);}, 300); 
+                  if(event.target.id == "searchButton"){addToArray();}            
+
+                 
+
+                }
+                else{
+                  displayErrorDoc.text('Please enter a valid State name');
+                displayErrorDoc.css (  'color', 'red' );
+                displayErrorDoc.append(displayErrorDoc);
+                }
+              
+              
+             
             
-            
+            }
 
             
             
-            //nothing/ test
             
-            
-            
-            /*const config = {
-                type: 'line',
-                data: data,
-                options: {
-                  responsive: true,
-                  plugins: {
-                    tooltip: {
-                      mode: 'index',
-                      intersect: false
-                    },
-                    title: {
-                      display: true,
-                      text: 'Chart.js Line Chart'
-                    }
-                  },
-                  hover: {
-                    mode: 'index',
-                    intersec: false
-                  },
-                  scales: {
-                    x: {
-                      title: {
-                        display: true,
-                        text: 'Month'
-                      }
-                    },
-                    y: {
-                      title: {
-                        display: true,
-                        text: 'Value'
-                      },
-                      min: 0,
-                      max: 100,
-                      ticks: {
-                        // forces step size to be 50 units
-                        stepSize: 50
-                      }
-                    }
-                  }
-                },
-              };
-              const DATA_COUNT = 7;
-            const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
-            const labels = Utils.months({count: 7});
-            const data = {
-              labels: labels,
-              datasets: [
-                {
-                  label: 'Dataset 1',
-                  data: Utils.numbers(NUMBER_CFG),
-                  borderColor: Utils.CHART_COLORS.red,
-                  backgroundColor: Utils.CHART_COLORS.red,
-                },
-                {
-                  label: 'Dataset 2',
-                  data: Utils.numbers(NUMBER_CFG),
-                  borderColor: Utils.CHART_COLORS.blue,
-                  backgroundColor: Utils.CHART_COLORS.blue,
-                }
-              ]
-            };
-            */
+            historyButton.on ('click', displayData2);
+            searchButtonDoc.on ('click', displayData2);
+            searchList ();
