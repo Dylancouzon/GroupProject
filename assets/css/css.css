@@ -10,6 +10,10 @@ body {
   height: 100px;
 }
 
+.factsData ul{
+  font-size: 1.2em;
+}
+
 .title {
   display: flex;
   justify-content: center;
@@ -42,6 +46,8 @@ body {
   font-size: 20px;
 }
 
-.centerbox .title {
-  color: blue
+.centerbox ul {
+  position: relative;
+  top: 20 px;
+
 }
