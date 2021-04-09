@@ -1,11 +1,8 @@
 // create list below search bar that shows previous searches
-    //
     //will be saved on local storage
 //add event listener to search button, and if clicked, run function DisplayData()
     //run funciton  that will display both the map and the graph for that specific state
     // the right side will parse out the data by state
-        //will have 50 different if statements saying that if search = statename, then display the data for that specific state
-            //inside if statement: beneath the graph area, we will create a list of different vaccination facts for that given state
             var listAreaDoc = $('#list')
             var searchTextAreaDoc = $('#searchText')
             var searchButtonDoc = $('#searchButton')
@@ -18,6 +15,9 @@
               
               
               var stateName = searchTextAreaDoc.val();
+              
+              
+              
               console.log (stateName);
               runAPIs (stateName) ;
             
@@ -76,13 +76,12 @@
             
                 var newData = oldData.reverse();
                 
-                console.log(newData);
             
             
             //********************Graph***************************
             
             
-            
+                $('#lineChart').replaceWith($('<canvas id="lineChart" height="100px" width="100px"></canvas>'));
                 const CHART = $('#lineChart');
                 console.log(CHART);
                 let lineChart = new Chart(CHART, {
@@ -117,25 +116,98 @@
             
             }
             
+
+             //local storage... hopefully
+
+             var stateHistory = JSON.parse(localStorage.getItem ("arrayList") );
+            
+            if ( !stateHistory ) {
+              stateHistory = [];
+            }
+
+            function addToArray() {
+              if (searchTextAreaDoc.value != "" ) {
+                stateHistory.unshift (searchTextAreaDoc.val());
+                console.log(stateHistory);
+
+                localStorage.setItem("arrayList",JSON.stringify(stateHistory));
+                searchList();
+                
+              }
+          
+            }
+            
+            function searchList () {
+
+              for (var i = 0 ; i< stateHistory.length; i++) {
+                var createList = $('<li>');
+                createList.text (stateHistory [i])
+                historyDoc.append(createList);
+
+              }
+
+            }
+            
+            //function for event listener
             function displayData2(){
+              
               var stateName = searchTextAreaDoc.val();
+              var displayErrorDoc = $('#error');
+
               console.log(stateName);
-              runAPIs(stateName);
-              setTimeout(function(){ displayData(stateName);}, 300);             }
+
+              var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+             
+              for ( var i = 0 ; i < states.length; i++){
+                if (stateName === states[i]){
+                  
+                  displayErrorDoc.empty();
+
+                  displayErrorDoc.append(displayErrorDoc);
+
+                  runAPIs(stateName);
+                  setTimeout(function(){ displayData(stateName);}, 300); 
+                  addToArray();            
+
+                 
+
+                }
+                else {
+                  
+                  displayErrorDoc.text('please enter state name correctly');
+                  displayErrorDoc.css (  'color', 'red' );
+                  displayErrorDoc.append(displayErrorDoc);
+
+                 
+
+
+
+                }
+              }
+             
+            
+            }
+
+
+            function clickableHistory (){
+
+
+
+
+            }
+            
+            
+            
+            historyDoc.on ('click', clickableHistory)
 
             searchButtonDoc.on ('click', displayData2)
             
-            //local storage... hopefully
-            var stateHistory = []
-            function addLocalStorage() {
-              if ( $('#searchText').value.trim() != "" ) {
-                stateHistory.push ($('#searchText').value)
-                console.log(stateHistory)
-              }
-              
+
             
             
-            }
+
+
+            
             
             //********************Graph***************************
             
