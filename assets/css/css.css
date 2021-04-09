@@ -42,6 +42,6 @@ body {
   font-size: 20px;
 }
 
-.centerbox .title {
-  color: blue
+.centerbox ul {
+  text-align: center;
 }

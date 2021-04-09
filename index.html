@@ -31,7 +31,6 @@
         <h2 class="subtitle is-size-4">Stay one step ahead of the virus. Stay informed!</h2>
     </div>
     </div>
-    <div>
     <!-- Start Tile here -->
     <div class="tile is-ancestor">
         <div class="tile is-vertical is-4">
@@ -43,7 +42,8 @@
                 <p class="subtitle">Search by State:</p>
                         <input id="searchText" class="input is-normal" type="text" placeholder="State"><br>
                         <button id="searchButton" class="button is-primary">Search</button>
-              </article>
+                        <div id="error"></div>
+            </article>
               <!-- Input dropdown menu -->
               <article class="tile is-child box" id="dropdown">
                 <p class="title">Search History</p>
@@ -97,7 +97,8 @@
                 <article class="tile is-child box">
                     <p class="title">COVID-19 Facts</p>
                     <p class="subtitle">State Information</p>
-                    <ul id="list">
+                    <div class="columns is-half">
+                    <ul class="column" id="list">
                         <li id="Fact1Lista"></li>
                         <li id="Fact2Lista"></li>
                         <li id="Fact3Lista"></li>
@@ -107,14 +108,13 @@
                         <li id="Fact7Lista"></li>
                         <li id="Fact8Lista"></li>
                       </ul>
-                <div style="width: 500px;">
+                <div class="column" style="width: 500px;">
                     <canvas id="lineChart" height="100px" width="100px"></canvas>
+                </div>
                 </div>
                 <div class="centerbox"></div>
             </article>
             </div>
-          </div>
-        </div>
     </div>
     <!-- End Tile here -->
     <!-- Insert footer -->
@@ -129,7 +129,7 @@
     <!-- Input jQuery link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Input jQuery UI link -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- input chart.js link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Input papaparse.js link -->
@@ -140,5 +140,18 @@
     <script src="assets/java/java.js"></script>
     <!-- Google Maps API link -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-GaCfEU6kkdjso8fpsFrO_j24Qsaxh9g&libraries=&v=weekly" async></script>
+    <!-- Input autocomplete -->
+    <script>
+        var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+          $( "#searchText" ).autocomplete({
+            source: function( request, response ) {
+                    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                    response( $.grep( states, function( item ){
+                        return matcher.test( item );
+                    }) );
+                }
+          });
+    </script>
+    
 </body>
 </html>
