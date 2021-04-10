@@ -49,7 +49,7 @@ Step 2. Click Search
 
 **Dylan**
 
-[Link to Github](https://github.com/Dylancouzon),
+[Link to Github](https://github.com/Dylancouzon)
 
 [Link to LinkedIn](https://www.linkedin.com/in/dcouzon/)
 
