@@ -1,9 +1,3 @@
-/* @media screen and (max-width: 475px) {
-  .box {
-    width: 100%;
-  }
-} */
-
 body {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color: #F5FFFA;
@@ -35,7 +29,6 @@ body {
   align-items: center;
 }
 
-
 #title {
   display: inline-block;
   width: 50%;
@@ -52,22 +45,8 @@ body {
   font-size: 20px;
 }
 
-
-/* .centerbox{
-  position: relative;
-  top: 20 px;
-  
-}
-
-.centerbox .title {
-  text-size-adjust: 24px;
-} */
-
 .centerbox .locationList{
   margin-left: 170px;
-
 }
 
-/* #historylist {
-  padding-left: 100px;
-} */
+
