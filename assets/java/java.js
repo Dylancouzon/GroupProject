@@ -35,9 +35,6 @@
             
             
             
-            
-            
-            
                 var Fact1List = $('#Fact1Lista');
                 var Fact2List = $('#Fact2Lista');
                 var Fact3List = $('#Fact3Lista');
@@ -145,7 +142,7 @@
               }
 
             }
-            //function for event listener
+            //function for event listener to run
             function displayData2(event){
 
               
@@ -168,7 +165,7 @@
                   displayErrorDoc.append(displayErrorDoc);
 
                   runAPIs(stateName);
-                  setTimeout(function(){ displayData(stateName);}, 300); 
+                  setTimeout(function(){ displayData(stateName);}, 400); // timer is to give time to the runAPIs function to finish getting data
                   if(event.target.id == "searchButton"){addToArray();}            
 
                  
@@ -181,7 +178,6 @@
                 }
               
               
-             
             
             }
 
