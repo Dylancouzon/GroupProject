@@ -49,9 +49,9 @@
                 Fact1List.text ('Confirmed cases: ' + covidConfirmedCases  );
                 Fact2List.text ('Recovered: ' + covidRecoveredCases);
                 Fact3List.text ('Deaths: ' + covidDeathCases );
-                Fact4List.text ('No. of vaccines state recieved: ' + stateShotsGiven );
-                Fact5List.text ('No. of people who have recived 1st dose: ' + returnVaccineData [1] );
-                Fact6List.text ('Percentage of people vacinated: ' + returnVaccineData [2] + '%'  );
+                Fact4List.text ('No. of vaccines state received: ' + stateShotsGiven );
+                Fact5List.text ('No. of people who have received 1st dose: ' + returnVaccineData [1] );
+                Fact6List.text ('Percentage of people vaccinated: ' + returnVaccineData [2] + '%'  );
                 Fact7List.text ('No. of people fully vaccinated: ' + returnVaccineData [3] );
                 Fact8List.text ('No. of daily vaccinations: ' + returnVaccineData [4] );
             
