@@ -1,4 +1,4 @@
-# Vaccinator
+# The Vaccinator
 
 
 ## Motivation
@@ -17,16 +17,19 @@ Step 2. Click Search
 
 ## Built With
 
-* [HTML]
-* [CSS]
-* [JavaScript]
-* [Github]
-* [Bulma]
-* [Jquery/JqueryUI]
-* [Chart.JS]
-* [GoogleMapsAPI]
-* [VaccineSpotterAPI]
-* [Corona.LMAO]
+* [HTML - Creates elements on the DOM ]
+* [CSS - Adds style to html elements]
+* [JavaScript - adds special effects on pages]
+* [Github - Holds repository that deploys to GitHub Pages]
+* [GitBash - For cloning repository and pushing/pulling code to GitHub]
+* [Bulma - CSS framework]
+* [Jquery - Library for Javascript]
+* [JqueryUI - CSS framework]
+* [Chart.JS - Library for displaying graph]
+* [GoogleMapsAPI - Provides a USA map template]
+* [VaccineSpotterAPI - Provides a list of available vaccination centers]
+* [Corona.LMAO - Provides COVID-19 data]
+* [Papaparse - CSV parser that parsed the vaccine data into JSON]
 
 ## Code Snippet  
 
