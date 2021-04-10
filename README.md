@@ -17,7 +17,7 @@ Step 2. Click Search
 
 ## Built With
 
-* [HTML - Creates elements on the DOM ]
+* [HTML - Creates elements on the DOM]
 * [CSS - Adds style to html elements]
 * [JavaScript - adds special effects on pages]
 * [Github - Holds repository that deploys to GitHub Pages]
